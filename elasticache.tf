@@ -1,5 +1,3 @@
-
-
 # Create Elasticache subnet group
 resource "aws_elasticache_subnet_group" "example_elasticache_subnet_group" {
   name       = "example-elasticache-subnet-group"
