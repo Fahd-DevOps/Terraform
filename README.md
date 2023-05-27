@@ -2,14 +2,14 @@
 ## Services
 
 - VPC
-- Internet gateway
-- Public subents
-- Private subnets
+- Internet Gateway
+- Public Subents
+- Private Subnets
 - Two AZs 
-- Two security groups
-- Instances in public subnet
-- Instances in private subnet
-- Nat getway
+- Two Security Groups
+- Instances in Public Subnet
+- Instances in Private Subnet
+- Nat Getway
 - S3
 - SES
 - SecretsManager
