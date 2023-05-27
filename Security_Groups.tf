@@ -105,7 +105,7 @@ resource "aws_security_group" "elasticache_security_group" {
 resource "aws_security_group" "private_cluster_sg" {
   name_prefix = "private-cluster-sg"
   vpc_id      = module.network.vpc_id
-  
+
 
   ingress {
     from_port   = 0
