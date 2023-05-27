@@ -12,6 +12,7 @@
 - Nat getway
 - S3
 - SES
+- SecretsManager
 - lambda
 - RDS DB
 - Elasticache
