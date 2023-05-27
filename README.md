@@ -15,3 +15,4 @@
 - lambda
 - RDS DB
 - Elasticache
+- EKS
