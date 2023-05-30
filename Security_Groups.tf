@@ -121,3 +121,24 @@ resource "aws_security_group" "private_cluster_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+# Create a Security Group for EKS
+resource "aws_security_group" "private_cluster_sg" {
+  name_prefix = "private-cluster-sg"
+  vpc_id      = module.network.vpc_id
+
+
+  ingress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = [module.network.vpc_cidr]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
