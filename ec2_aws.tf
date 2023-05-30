@@ -78,7 +78,7 @@ resource "aws_instance" "application" {
     sudo nohup node index.js &
     echo "Node.js app started with process PID $!"
 
-    EOF
+  EOF
 }
 
 resource "null_resource" "get_instance_ip" {
