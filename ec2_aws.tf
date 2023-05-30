@@ -19,7 +19,20 @@ resource "aws_instance" "bastion" {
    chmod 400 /home/ec2-user/TF-key.pem
    sudo yum update
    sudo yum install mariadb
-   EOF
+
+   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+   unzip awscliv2.zip
+   sudo ./aws/install
+   sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+
+   curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.26.4/2023-05-11/bin/linux/amd64/kubectl
+   curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.26.4/2023-05-11/bin/linux/amd64/kubectl.sha256
+   sha256sum -c kubectl.sha256
+   chmod +x ./kubectl
+   mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+   echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+
+  EOF
 }
 
 
