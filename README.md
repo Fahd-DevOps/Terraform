@@ -2,54 +2,103 @@
 
 This project uses Terraform to provision and manage infrastructure resources on AWS, including Amazon EKS (Elastic Kubernetes Service), RDS (Relational Database Service), EC2 instances, networking components, and more. The infrastructure is designed to support both development and production environments.
 
-## Table of Contents
-
-- [Project Structure](#project-structure)
+# Table of Contents
 - [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-
-
-## Project Structure
-
-The project is structured into multiple files, each responsible for provisioning different resources and components:
-
-- **backend.tf**: Manages where Terraform stores its configuration data.
-- **provider.tf**: Specifies the cloud providers (AWS, Kubernetes) for Terraform.
-- **variables.tf**: Holds variable definitions for Terraform.
-- **deploy_jenkins.tf**: Deploys Jenkins on Kubernetes.
-- **service_deploy.tf**: Sets up a Kubernetes service for Jenkins.
-- **ec2_aws.tf**: Creates Amazon EC2 instances.
-- **db.tf**: Sets up a database using Amazon RDS.
-- **elasticache.tf**: Establishes a managed Redis cache.
-- **Eks_Role.tf**: Defines permissions for Amazon EKS.
-- **Eks_node_group.tf**: Creates worker nodes for Amazon EKS.
-- **EKS.tf**: Creates an Amazon EKS cluster.
-- **Key_aws.tf**: Generates an SSH key pair.
-- **network/EIP.tf**: Configures Elastic IPs.
-- **network/Nat_Gateway.tf**: up NAT Gateways.
-- **network/Private_Route_Table.tf**: Manages private route settings.
-- **network/Public_Route_Table.tf**: Handles public route settings.
-- **network/output.tf**: Provides output information about the created infrastructure.
-- **network/variables.tf**: Stores variable definitions for the network.
-- **network/vpc.tf**: Creates a Virtual Private Cloud (VPC).
-- **Security_Groups.tf**: Defines security rules.
-- **dev-env.tfvars**: Contains variables for the development environment.
-- **prod-env.tfvars**: Contains variables for the production environment.
+- [Setup](#setup)
+- [Terraform Configuration](#terraform-configuration)
+- [Infrastructure Components](#infrastructure-components)
+  - [Amazon EKS Cluster](#amazon-eks-cluster)
+  - [Amazon RDS Database](#amazon-rds-database)
+  - [Elasticache Redis Cache](#elasticache-redis-cache)
+  - [Amazon EC2 Instances](#amazon-ec2-instances)
+  - [Networking](#networking)
+    - [Networking Variables](#networking-variables)
+    - [Virtual Private Cloud (VPC)](#virtual-private-cloud-vpc)
+    - [Public Route Table](#public-route-table)
+    - [Private Route Table](#private-route-table)
+    - [Elastic IPs](#elastic-ips)
+    - [NAT Gateways](#nat-gateways)
+    - [Networking Output](#networking-output)
+- [Environment Configuration](#environment-configuration)
+  - [Development Environment Variables](#development-environment-variables)
+  - [Production Environment Variables](#production-environment-variables)
+- [Provider Configuration](#provider-configuration)
+- [Access Key Configuration](#access-key-configuration)
+- [Security Groups Configuration](#security-groups-configuration)
+- [Usage](#usage)
 
 ## Prerequisites
+- An AWS account with appropriate permissions.
+- Terraform installed on your local machine.
+- Basic knowledge of Terraform and AWS services.
 
-- AWS Account
-- AWS CLI configured with necessary permissions
-- Terraform installed
-- kubectl installed (for Kubernetes-related resources)
-- Basic understanding of AWS, Terraform, and Kubernetes concepts
+## Setup
+1. Clone the repository: `git clone https://github.com/Fahd-DevOps/Terraform.git`
+2. Navigate to the repository: `cd Terraform`
+3. Modify the necessary variables in `dev-env.tfvars` or `prod-env.tfvars` files.
 
-## Getting Started
+## Terraform Configuration
+- **backend.tf**: Configures where Terraform stores its configuration data.
 
-1. Clone this repository to your local machine.
-2. Update `dev-env.tfvars` and `prod-env.tfvars` files with your environment-specific variables.
-3. Run the following commands to initialize and apply the Terraform configuration:
+## Infrastructure Components
+### Amazon EKS Cluster
+- **EKS.tf**: Defines an Amazon EKS cluster and its associated resources.
+- **Eks_Role.tf**: Creates IAM roles for EKS.
+- **Eks_node_group.tf**: Sets up worker nodes for EKS.
+- **deploy_jenkins.tf**: Deploys Jenkins on the EKS cluster.
+- **service_deploy.tf**: Creates a Kubernetes service for Jenkins.
 
-   ```sh
-   terraform init
-   terraform apply -var-file=dev-env.tfvars
+### Amazon RDS Database
+- **db.tf**: Sets up an Amazon RDS MySQL database.
+- **RDS_Key.tf**: Manages RDS credentials using AWS Secrets Manager.
+
+### Elasticache Redis Cache
+- **elasticache.tf**: Establishes an Elasticache Redis cache.
+
+### Amazon EC2 Instances
+- **ec2_aws.tf**: Creates Amazon EC2 instances for various purposes.
+
+### Networking
+#### Networking Variables
+- **network/variables.tf**: Defines variables for the networking configuration.
+
+#### Virtual Private Cloud (VPC)
+- **network/vpc.tf**: Creates a Virtual Private Cloud (VPC) along with its components.
+
+#### Public Route Table
+- **network/Public_Route_Table.tf**: Manages public route settings.
+
+#### Private Route Table
+- **network/Private_Route_Table.tf**: Handles private route settings.
+
+#### Elastic IPs
+- **network/EIP.tf**: Configures Elastic IPs for instances.
+
+#### NAT Gateways
+- **network/Nat_Gateway.tf**: Sets up NAT Gateways for private instances.
+
+#### Networking Output
+- **network/output.tf**: Outputs computed values from the networking configuration.
+
+## Environment Configuration
+#### Development Environment Variables
+- **dev-env.tfvars**: Variables specific to the development environment.
+
+#### Production Environment Variables
+- **prod-env.tfvars**: Variables specific to the production environment.
+
+## Provider Configuration
+- **provider.tf**: Configures the AWS provider, including authentication.
+
+## Access Key Configuration
+- **Key_aws.tf**: Manages AWS access keys.
+
+## Security Groups Configuration
+- **Security_Groups.tf**: Defines inbound and outbound rules for security groups.
+
+## Usage
+1. Ensure AWS credentials are configured on your system.
+2. Navigate to the Terraform directory.
+3. Run `terraform init` to initialize the project.
+4. Run `terraform apply -var-file=dev-env.tfvars` to deploy the development environment.
+5. To deploy the production environment, replace `dev` with `prod` in the var-file.
